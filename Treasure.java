@@ -6,12 +6,18 @@ public class Treasure {
     private static boolean isSCFound = false;
     private static boolean isMFound = false;
 
+    public Treasure() {
+        foundTreasure = false;
+    }
+
     public String getTreasure() {
         if(foundTreasure) {
+            System.out.println("You already searched for a treasure in this town! ");
             return "";
         }
         int x = (int) (Math.random() * 4) + 1;
         foundTreasure = true;
+        System.out.println();
         if (x == 1) {
             System.out.println("You found a Viking Battle Axe");
             if (isVBAFound) {
@@ -24,6 +30,7 @@ public class Treasure {
             return "Viking Battle Axe";
         }
         else if (x == 2) {
+            System.out.println("You found a Shieldmaiden Corset");
             if (isSCFound) {
                 System.out.println("You already own a Shieldmaiden Corset");
                 System.out.println("You discarded the Corset.");
@@ -34,6 +41,7 @@ public class Treasure {
             return "Shieldmaiden Corset";
         }
         else if (x == 3) {
+            System.out.println("You found a Mjonir");
             if (isMFound) {
                 System.out.println("You already own a Mjonir");
                 System.out.println("You discarded the Mjonir.");
@@ -44,8 +52,13 @@ public class Treasure {
             return "Mjonir";
         }
         else {
+            System.out.println("You didn't find anything. ");
             return "";
         }
+    }
+
+    public int getTotalTreasuresFound() {
+        return totalTreasuresFound;
     }
 
 }

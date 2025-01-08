@@ -8,6 +8,7 @@ public class Town
     private Hunter hunter;
     private Shop shop;
     private Terrain terrain;
+    private Treasure treasure;
     private String printMessage;
     private boolean toughTown;
 
@@ -21,6 +22,7 @@ public class Town
     {
         this.shop = shop;
         this.terrain = getNewTerrain();
+        this.treasure = new Treasure();
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -90,7 +92,7 @@ public class Town
      * The chances of finding a fight and winning the gold are based on the toughness of the town.<p>
      * The tougher the town, the easier it is to find a fight, and the harder it is to win one.
      */
-    public void lookForTrouble()
+    public boolean lookForTrouble()
     {
         double noTroubleChance;
         if (toughTown)
@@ -121,8 +123,15 @@ public class Town
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
                 printMessage += "\nYou lost the brawl and pay " +  goldDiff + " gold.";
                 hunter.changeGold(-1 * goldDiff);
+                System.out.println("Gold: " + hunter.getGold());
+                if (hunter.getGold() <= goldDiff) {
+                    System.out.println();
+                    System.out.println("You just lost all your gold! You lost!");
+                    return true;
+                }
             }
         }
+        return false;
     }
 
     public String toString()
@@ -168,5 +177,16 @@ public class Town
     {
         double rand = Math.random();
         return (rand < 0.5);
+    }
+
+    public boolean treasureHunt() {
+        String treasureFound = treasure.getTreasure();
+        if (treasure.getTotalTreasuresFound() >= 3) {
+            System.out.println("Congratulation! You won the game!");
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
