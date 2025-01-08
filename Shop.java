@@ -14,14 +14,25 @@ public class Shop
     private static final int BOAT_COST = 20;
 
     // instance variables
-    private double markdown;
+    private double markdown; // for selling
+    private double discount; // for buying
     private Hunter customer;
 
+    // Difficulty
+    private String mode;
+
     //Constructor
-    public Shop(double markdown)
+    public Shop(double markdown, String mode)
     {
         this.markdown = markdown;
+        if (mode.equals("cheats") || mode.equals("hard")) {
+            discount = 1;
+        }
+        else {
+            discount = 0.5;
+        }
         customer = null;
+        this.mode = mode;
     }
 
     /** method for entering the shop
@@ -85,11 +96,11 @@ public class Shop
      */
     public String inventory()
     {
-        String str = "Water: " + WATER_COST + " gold\n";
-        str += "Rope: " + ROPE_COST + " gold\n";
-        str += "Machete: " + MACHETE_COST + " gold\n";
-        str += "Horse: " + HORSE_COST + " gold\n";
-        str += "Boat: " + BOAT_COST + " gold\n";
+        String str = "Water: " + getCostOfItem("Water") + " gold\n";
+        str += "Rope: " + getCostOfItem("Rope") + " gold\n";
+        str += "Machete: " + getCostOfItem("Machete") + " gold\n";
+        str += "Horse: " + getCostOfItem("Horse") + " gold\n";
+        str += "Boat: " + getCostOfItem("Boat") + " gold\n";
 
         return str;
     }
@@ -134,17 +145,15 @@ public class Shop
      * @param isBuying Whether the item is being bought or sold.
      * @return The cost of buying or selling the item based on the isBuying parameter.
      */
-    public int checkMarketPrice(String item, boolean isBuying)
-    {
-        if (isBuying)
-        {
-            return getCostOfItem(item);
-        }
-        else
-        {
+    public int checkMarketPrice(String item, boolean isBuying) {
+        if (isBuying) {
+            return getCostOfItem(item); // half off
+            }
+        else {
             return getBuyBackCost(item);
         }
     }
+
 
     /**
      * Checks the item entered against the costs listed in the static variables.
@@ -154,25 +163,28 @@ public class Shop
      */
     public int getCostOfItem(String item)
     {
+        if (mode.equals("cheats")) {
+            return 1;
+        }
         if (item.equals("Water"))
         {
-            return WATER_COST;
+            return (int) (WATER_COST * discount);
         }
         else if (item.equals("Rope"))
         {
-            return ROPE_COST;
+            return (int) (ROPE_COST * discount);
         }
         else if (item.equals("Machete"))
         {
-            return MACHETE_COST;
+            return (int) (MACHETE_COST * discount);
         }
         else if (item.equals("Horse"))
         {
-            return HORSE_COST;
+            return (int) (HORSE_COST * discount);
         }
         else if (item.equals("Boat"))
         {
-            return BOAT_COST;
+            return (int) (BOAT_COST * discount);
         }
         else
         {
