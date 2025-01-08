@@ -125,6 +125,11 @@ public class TreasureHunter
             choice = scanner.nextLine();
             choice = choice.toUpperCase();
             processChoice(choice);
+            if (endGame) {
+                System.out.println(currentTown.getLatestNews());
+                choice = "x";
+            }
+
         }
     }
 

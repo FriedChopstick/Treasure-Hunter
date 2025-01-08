@@ -1,7 +1,7 @@
 public class Treasure {
 
     private boolean foundTreasure;
-    public static int totalTreasuresFound = 0;
+    private static int totalTreasuresFound = 0;
     private static boolean isVBAFound = false;
     private static boolean isSCFound = false;
     private static boolean isMFound = false;

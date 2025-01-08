@@ -129,15 +129,13 @@ public class Town
                 printMessage += "\nYou won the brawl and receive " +  goldDiff + " gold.";
                 hunter.changeGold(goldDiff);
             }
-            else
-            {
+            else {
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
-                printMessage += "\nYou lost the brawl and pay " +  goldDiff + " gold.";
+                printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
                 hunter.changeGold(-1 * goldDiff);
                 System.out.println("Gold: " + hunter.getGold());
                 if (hunter.getGold() <= goldDiff) {
-                    System.out.println();
-                    System.out.println("You just lost all your gold! You lost!");
+                    printMessage += "\nYou just lost all your gold! You lost!";
                     return true;
                 }
             }
