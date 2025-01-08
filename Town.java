@@ -11,6 +11,7 @@ public class Town
     private Treasure treasure;
     private String printMessage;
     private boolean toughTown;
+    private String mode;
 
     //Constructor
     /**
@@ -18,11 +19,12 @@ public class Town
      * @param s The town's shoppe.
      * @param t The surrounding terrain.
      */
-    public Town(Shop shop, double toughness)
+    public Town(Shop shop, double toughness, String mode)
     {
         this.shop = shop;
         this.terrain = getNewTerrain();
         this.treasure = new Treasure();
+        this.mode = mode;
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -94,6 +96,8 @@ public class Town
      */
     public boolean lookForTrouble()
     {
+
+
         double noTroubleChance;
         if (toughTown)
         {
@@ -110,9 +114,16 @@ public class Town
         }
         else
         {
-            printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
             int goldDiff = (int)(Math.random() * 10) + 1;
-            if (Math.random() > noTroubleChance)
+            boolean winner = false;
+
+            if (mode.equals("cheats")) {
+                goldDiff = 100;
+                winner = true;
+            }
+            printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
+
+            if (Math.random() > noTroubleChance || winner)
             {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " +  goldDiff + " gold.";

@@ -11,7 +11,7 @@ public class TreasureHunter
     //Instance variables
     private Town currentTown;
     private Hunter hunter;
-    private boolean hardMode;
+    private String mode;
     private boolean endGame;
 
     //Constructor
@@ -23,7 +23,7 @@ public class TreasureHunter
         // these will be initialized in the play method
         currentTown = null;
         hunter = null;
-        hardMode = false;
+        mode = "";
         endGame = false;
     }
 
@@ -51,10 +51,16 @@ public class TreasureHunter
         hunter = new Hunter(name, 10);
 
         System.out.print("Hard mode? (y/n): ");
-        String hard = scanner.nextLine();
-        if (hard.equals("y") || hard.equals("Y"))
+        String difficulty = scanner.nextLine();
+        if (difficulty.equals("ADMIN1")) {
+            mode = "cheats";
+        }
+        else if (difficulty.equals("y") || difficulty.equals("Y"))
         {
-            hardMode = true;
+            mode = "hard";
+        }
+        else {
+            mode = "easy";
         }
     }
 
@@ -63,9 +69,9 @@ public class TreasureHunter
      */
     private void enterTown()
     {
-        double markdown = 0.25;
+        double markdown = 0.75;
         double toughness = 0.4;
-        if (hardMode)
+        if (mode.equals("hard"))
         {
             // in hard mode, you get less money back when you sell items
             markdown = 0.5;
@@ -82,7 +88,7 @@ public class TreasureHunter
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness);
+        currentTown = new Town(shop, toughness, mode);
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the
