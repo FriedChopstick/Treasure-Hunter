@@ -135,6 +135,7 @@ public class Town
                 hunter.changeGold(goldDiff);
             }
             else {
+                goldDiff -= 3; // dont want to pay more for losses
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
                 printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
                 if (hunter.getGold() <= Math.abs(goldDiff)) {
