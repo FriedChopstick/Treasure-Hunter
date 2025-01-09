@@ -28,7 +28,7 @@ public class Shop
         if (mode.equals("cheats") || mode.equals("hard")) {
             discount = 1;
         }
-        else {
+        else if (mode.equals("easy")){
             discount = 0.5;
         }
         customer = null;
