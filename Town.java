@@ -96,7 +96,7 @@ public class Town
      */
     public boolean lookForTrouble()
     {
-
+        int minimumGoldForWin = 3;
 
         double noTroubleChance;
         if (toughTown)
@@ -120,6 +120,11 @@ public class Town
             if (mode.equals("cheats")) {
                 goldDiff = 100;
                 winner = true;
+            }
+
+            if (mode.equals("easy")) {
+                goldDiff += minimumGoldForWin;
+                noTroubleChance -= 0.1; //  makes winning easier
             }
             printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
 
